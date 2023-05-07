@@ -1,0 +1,7 @@
+name: PlayerDeathCoords
+version: '${project.version}'
+main: one.crafters.playerdeathcoords.PlayerDeathCoords
+api-version: 1.19
+authors: [ Plexiate ]
+description: Sends the coords of player deaths to discord using a webhook.
+website: https://crafters.one
