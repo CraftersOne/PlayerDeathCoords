@@ -1,5 +1,5 @@
-webhook: put_it_here
-
+webhook: webhook_url
+prefix: '&8[&aPlayer Death Coords&8]'
 messages:
   broadcast-totems: false
   message-player: false

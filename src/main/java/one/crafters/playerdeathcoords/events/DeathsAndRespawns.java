@@ -46,7 +46,7 @@ public class DeathsAndRespawns implements Listener {
 
         webhook.addEmbed(new DiscordWebhook.EmbedObject()
                 .addField("World", world, true)
-                .addField("Location", String.format("%d, %d, %d", x, y, z), true)
+                .addField("Coords", String.format("%d, %d, %d", x, y, z), true)
                 .addField("Ping", String.format("%d", ping), true)
                 .addField("XP", String.format("Lvl %d", levels), true)
                 .setAuthor(deathMessage, "", HEAD_URL + p.getUniqueId().toString())

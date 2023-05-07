@@ -1,5 +1,6 @@
 package one.crafters.playerdeathcoords;
 
+import one.crafters.playerdeathcoords.commands.CommandManagerClass;
 import one.crafters.playerdeathcoords.events.DeathsAndRespawns;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -13,6 +14,7 @@ public final class PlayerDeathCoords extends JavaPlugin {
         PLUGIN = this;
         saveDefaultConfig();
         Bukkit.getServer().getPluginManager().registerEvents(new DeathsAndRespawns(), this);
+        getCommand("pdc").setExecutor(new CommandManagerClass());
     }
 
     public DiscordWebhook getWebhook() {

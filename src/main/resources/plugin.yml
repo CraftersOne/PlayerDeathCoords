@@ -5,3 +5,6 @@ api-version: 1.19
 authors: [ Plexiate ]
 description: Sends the coords of player deaths to discord using a webhook.
 website: https://crafters.one
+commands:
+    pdc:
+      description: Additional commands for Player Death Coords.
