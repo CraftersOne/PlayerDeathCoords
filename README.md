@@ -7,12 +7,16 @@ Initially designed for the Crafters.one SMP server.
 - Send webhook messages to Discord (Totems & Deats)
  - Broadcast totem usage to the server's chat
  - Privately display the coords where a user died to that user
+ - Custom prefix, changable within the config.
 
 # How to install
 1. Download the latest release .jar file and put it in the server's plugins folder
 2. Start the server
-3. Edit the config file with your webhook
+3. Edit the config file with your webhook & other details
 4. Restart the server
+
+# Commands & Permissions
+/pdc reload - playerdeathcoords.reload
 
 # Images
 
