@@ -1,6 +1,8 @@
 # Player Death Coords
  This simple plugin allows you to send the coordinates of your player's death locations to Discord via a webhook.
 
+Initially designed for the Crafters.one SMP server.
+
 # Features
 - Send webhook messages to Discord (Totems & Deats)
  - Broadcast totem usage to the server's chat
