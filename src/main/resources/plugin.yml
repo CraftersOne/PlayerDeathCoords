@@ -8,3 +8,7 @@ website: https://crafters.one
 commands:
     pdc:
       description: Additional commands for Player Death Coords.
+permissions:
+  playerdeathcoords.reload:
+    description: Allows the user to reload the config for Player Death Coords.
+    default: op
