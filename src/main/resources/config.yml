@@ -1,1 +1,5 @@
 webhook: put_it_here
+
+messages:
+  broadcast-totems: false
+  message-player: false

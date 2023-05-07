@@ -2,13 +2,17 @@ package one.crafters.playerdeathcoords.events;
 
 import one.crafters.playerdeathcoords.DiscordWebhook;
 import one.crafters.playerdeathcoords.PlayerDeathCoords;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityResurrectEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.scheduler.BukkitScheduler;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.awt.*;
 import java.io.IOException;
@@ -49,6 +53,17 @@ public class DeathsAndRespawns implements Listener {
                 .setColor(new Color(255 , 0, 0))
                 .setDescription("")
     );
+
+        FileConfiguration config = PlayerDeathCoords.getInstance().getConfig();
+
+        if (config.getBoolean("messages.message-player")) {
+            BukkitScheduler scheduler = Bukkit.getScheduler();
+            scheduler.scheduleSyncDelayedTask(PlayerDeathCoords.getInstance(), new Runnable() {
+                public void run() {
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7Your death coords were " + String.format("&e%d %d %d", x, y, z)));
+                }
+            }, 15L);}
+
         try {
             webhook.execute();
         } catch (IOException ex) {
@@ -68,6 +83,18 @@ public class DeathsAndRespawns implements Listener {
                     .setAuthor(username + " used a totem to escape death!", "", HEAD_URL + p.getUniqueId().toString())
                     .setColor(new Color(255 , 143, 0))
             );
+
+            FileConfiguration config = PlayerDeathCoords.getInstance().getConfig();
+
+            if (config.getBoolean("messages.broadcast-totems")) {
+                BukkitScheduler scheduler = Bukkit.getScheduler();
+                scheduler.scheduleSyncDelayedTask(PlayerDeathCoords.getInstance(), new Runnable() {
+                    public void run() {
+                        Bukkit.broadcastMessage(username + " used a totem to escape death!");
+                    }
+                }, 1L);}
+
+
             try {
                 webhook.execute();
             } catch (IOException ex) {
