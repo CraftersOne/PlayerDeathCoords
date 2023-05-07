@@ -18,8 +18,4 @@ Initially designed for the Crafters.one SMP server.
 
 ![alt text](https://i.imgur.com/3fs2HNh.png)
 
-<<<<<<< HEAD
 ![alt text](https://i.imgur.com/gvaF42Z.png)
-=======
-![alt text](https://i.imgur.com/gvaF42Z.png)
->>>>>>> 1fbd346886c44d34652a41c1dd0456be3e682df4
