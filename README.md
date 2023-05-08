@@ -4,7 +4,7 @@
 Initially designed for the Crafters.one SMP server.
 
 # Features
-- Send webhook messages to Discord (Totems & Deats)
+- Send webhook messages to Discord (Totems & Deaths)
  - Broadcast totem usage to the server's chat
  - Privately display the coords where a user died to that user
  - Custom prefix, changable within the config.
