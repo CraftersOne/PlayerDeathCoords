@@ -29,10 +29,10 @@ public class ReloadCommand extends SubCommand {
     public void perform(Player player, String[] args) {
 
         FileConfiguration config = PlayerDeathCoords.getInstance().getConfig();
-
+        String reloadmessage = config.getString("messages.reload-message");
         String pluginprefix = config.getString("prefix");
 
-        player.sendMessage(ChatColor.translateAlternateColorCodes('&', pluginprefix + "&f Player Death Coords has been reloaded."));
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&', pluginprefix + reloadmessage));
         PlayerDeathCoords.getInstance().reloadConfig();
         PlayerDeathCoords.getInstance().saveConfig();
 

@@ -3,3 +3,10 @@ prefix: '&8[&aPlayer Death Coords&8]'
 messages:
   broadcast-totems: false
   message-player: false
+
+  #These are the messages that are sent / received from the server and player.
+  #Please edit these if you want to format the default messaging system.
+  #do not edit the %d %d %d part. Just add your styling to it.
+
+  death-cords-message: '&7Your death coords were &e'
+  reload-message: '&f Player Death Coords has been reloaded.'

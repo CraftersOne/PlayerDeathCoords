@@ -25,6 +25,7 @@ public class DeathsAndRespawns implements Listener {
 
     @EventHandler
     public void onDeath(PlayerDeathEvent e) {
+        FileConfiguration config = PlayerDeathCoords.getInstance().getConfig();
         Player p = e.getEntity();
 
         String username = p.getDisplayName();
@@ -41,6 +42,10 @@ public class DeathsAndRespawns implements Listener {
         int levels = p.getLevel();
 
         String message = String.format("**%s at %d, %d, %d.**", deathMessage, x, y, z);
+        String deathcoords = String.format("&e%d %d %d", x, y, z);
+
+        String pluginprefix = config.getString("prefix");
+        String deathmsgyml = config.getString("messages.death-cords-message");
 
         DiscordWebhook webhook = PlayerDeathCoords.getInstance().getWebhook();
 
@@ -54,13 +59,13 @@ public class DeathsAndRespawns implements Listener {
                 .setDescription("")
     );
 
-        FileConfiguration config = PlayerDeathCoords.getInstance().getConfig();
 
         if (config.getBoolean("messages.message-player")) {
+
             BukkitScheduler scheduler = Bukkit.getScheduler();
             scheduler.scheduleSyncDelayedTask(PlayerDeathCoords.getInstance(), new Runnable() {
                 public void run() {
-                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7Your death coords were " + String.format("&e%d %d %d", x, y, z)));
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', pluginprefix + " " + deathmsgyml + String.format("%d, %d, %d", x, y, z)));
                 }
             }, 15L);}
 
@@ -85,12 +90,13 @@ public class DeathsAndRespawns implements Listener {
             );
 
             FileConfiguration config = PlayerDeathCoords.getInstance().getConfig();
+            String pluginprefix = config.getString("prefix");
 
             if (config.getBoolean("messages.broadcast-totems")) {
                 BukkitScheduler scheduler = Bukkit.getScheduler();
                 scheduler.scheduleSyncDelayedTask(PlayerDeathCoords.getInstance(), new Runnable() {
                     public void run() {
-                        Bukkit.broadcastMessage(username + " used a totem to escape death!");
+                        Bukkit.broadcastMessage(pluginprefix + username + " used a totem to escape death!");
                     }
                 }, 1L);}
 
