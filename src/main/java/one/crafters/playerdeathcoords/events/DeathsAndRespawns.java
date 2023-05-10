@@ -57,6 +57,7 @@ public class DeathsAndRespawns implements Listener {
                 .setAuthor(deathMessage, "", HEAD_URL + p.getUniqueId().toString())
                 .setColor(new Color(255 , 0, 0))
                 .setDescription("")
+                .setFooter("Player Death Coords v1.1.2", "")
     );
 
 
