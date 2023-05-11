@@ -17,6 +17,7 @@ import org.bukkit.scheduler.BukkitTask;
 import java.awt.*;
 import java.io.IOException;
 import java.time.Instant;
+import java.util.logging.Logger;
 
 public class DeathsAndRespawns implements Listener {
 
@@ -46,19 +47,19 @@ public class DeathsAndRespawns implements Listener {
 
         String pluginprefix = config.getString("prefix");
         String deathmsgyml = config.getString("messages.death-coords-message");
+        String discdeathmessage = config.getString("discord-messages.totem-usage");
 
         DiscordWebhook webhook = PlayerDeathCoords.getInstance().getWebhook();
 
-        webhook.addEmbed(new DiscordWebhook.EmbedObject()
-                .addField("World", world, true)
-                .addField("Coords", String.format("%d, %d, %d", x, y, z), true)
-                .addField("Ping", String.format("%d", ping), true)
-                .addField("XP", String.format("Lvl %d", levels), true)
-                .setAuthor(deathMessage, "", HEAD_URL + p.getUniqueId().toString())
-                .setColor(new Color(255 , 0, 0))
-                .setDescription("")
-                .setFooter("Player Death Coords v1.1.2", "")
-    );
+            webhook.addEmbed(new DiscordWebhook.EmbedObject()
+                    .addField("World", world, true)
+                    .addField("Coords", String.format("%d, %d, %d", x, y, z), true)
+                    .addField("Ping", String.format("%d", ping), true)
+                    .addField("XP", String.format("Lvl %d", levels), true)
+                    .setAuthor(discdeathmessage.replace("{USERNAME}", username), "", HEAD_URL + p.getUniqueId().toString())
+                    .setColor(new Color(255 , 0, 0))
+                    .setDescription("")
+            );
 
 
         if (config.getBoolean("send-death-coords-privately")) {
