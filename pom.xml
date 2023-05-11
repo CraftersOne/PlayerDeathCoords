@@ -6,7 +6,7 @@
 
     <groupId>crafters.one</groupId>
     <artifactId>PlayerDeathCoords</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
     <packaging>jar</packaging>
 
     <name>PlayerDeathCoords</name>
