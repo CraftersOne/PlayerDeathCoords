@@ -47,7 +47,6 @@ public class DeathsAndRespawns implements Listener {
 
         String pluginprefix = config.getString("prefix");
         String deathmsgyml = config.getString("messages.death-coords-message");
-        String discdeathmessage = config.getString("discord-messages.totem-usage");
 
         DiscordWebhook webhook = PlayerDeathCoords.getInstance().getWebhook();
 
@@ -56,7 +55,7 @@ public class DeathsAndRespawns implements Listener {
                     .addField("Coords", String.format("%d, %d, %d", x, y, z), true)
                     .addField("Ping", String.format("%d", ping), true)
                     .addField("XP", String.format("Lvl %d", levels), true)
-                    .setAuthor(discdeathmessage.replace("{USERNAME}", username), "", HEAD_URL + p.getUniqueId().toString())
+                    .setAuthor(deathMessage.replace("{USERNAME}", username), "", HEAD_URL + p.getUniqueId().toString())
                     .setColor(new Color(255 , 0, 0))
                     .setDescription("")
             );
