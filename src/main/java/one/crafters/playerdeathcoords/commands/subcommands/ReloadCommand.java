@@ -32,7 +32,9 @@ public class ReloadCommand extends SubCommand {
         String reloadmessage = config.getString("messages.reload-message");
         String pluginprefix = config.getString("prefix");
 
-        player.sendMessage(ChatColor.translateAlternateColorCodes('&', pluginprefix + reloadmessage));
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&', reloadmessage
+                .replace("{PREFIX}", pluginprefix)
+        ));
         PlayerDeathCoords.getInstance().reloadConfig();
         PlayerDeathCoords.getInstance().saveConfig();
 

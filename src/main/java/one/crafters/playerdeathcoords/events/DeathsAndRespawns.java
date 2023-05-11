@@ -23,9 +23,10 @@ public class DeathsAndRespawns implements Listener {
 
     private static final String HEAD_URL = "https://mc-heads.net/avatar/";
 
+    FileConfiguration config = PlayerDeathCoords.getInstance().getConfig();
+
     @EventHandler
     public void onDeath(PlayerDeathEvent e) {
-        FileConfiguration config = PlayerDeathCoords.getInstance().getConfig();
         Player p = e.getEntity();
 
         String username = p.getDisplayName();
@@ -41,11 +42,10 @@ public class DeathsAndRespawns implements Listener {
         int ping = p.getPing();
         int levels = p.getLevel();
 
-        String message = String.format("**%s at %d, %d, %d.**", deathMessage, x, y, z);
         String deathcoords = String.format("&e%d %d %d", x, y, z);
 
         String pluginprefix = config.getString("prefix");
-        String deathmsgyml = config.getString("messages.death-cords-message");
+        String deathmsgyml = config.getString("messages.death-coords-message");
 
         DiscordWebhook webhook = PlayerDeathCoords.getInstance().getWebhook();
 
@@ -61,12 +61,14 @@ public class DeathsAndRespawns implements Listener {
     );
 
 
-        if (config.getBoolean("messages.message-player")) {
-
+        if (config.getBoolean("send-death-coords-privately")) {
             BukkitScheduler scheduler = Bukkit.getScheduler();
             scheduler.scheduleSyncDelayedTask(PlayerDeathCoords.getInstance(), new Runnable() {
                 public void run() {
-                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', pluginprefix + " " + deathmsgyml + String.format("%d, %d, %d", x, y, z)));
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', deathmsgyml
+                            .replace("{PREFIX}", pluginprefix)
+                            .replace("{USERNAME}", username)
+                            .replace("{COORDS}", deathcoords)));
                 }
             }, 15L);}
 
@@ -83,21 +85,37 @@ public class DeathsAndRespawns implements Listener {
         if (e.getEntity() instanceof Player p && e.getHand() != null) {
 
             String username = p.getDisplayName();
+            String totemchatmsg = config.getString("messages.totem-usage-server-chat");
+            String dtotemmsg = config.getString("discord-messages.totem-usage");
+
+            Location location = p.getLocation();
+
+            int x = location.getBlockX();
+            int y = location.getBlockY();
+            int z = location.getBlockZ();
+
+            String deathcoords = String.format("&e%d %d %d", x, y, z);
+
             DiscordWebhook webhook = PlayerDeathCoords.getInstance().getWebhook();
 
             webhook.addEmbed(new DiscordWebhook.EmbedObject()
-                    .setAuthor(username + " used a totem to escape death!", "", HEAD_URL + p.getUniqueId().toString())
-                    .setColor(new Color(255 , 143, 0))
+                    .setAuthor(dtotemmsg
+                            .replace("{USERNAME}", username), "", HEAD_URL + p.getUniqueId().toString())
+                            .setColor(new Color(255 , 143, 0))
             );
 
             FileConfiguration config = PlayerDeathCoords.getInstance().getConfig();
             String pluginprefix = config.getString("prefix");
 
-            if (config.getBoolean("messages.broadcast-totems")) {
+            if (config.getBoolean("broadcast-totems-to-chat")) {
                 BukkitScheduler scheduler = Bukkit.getScheduler();
                 scheduler.scheduleSyncDelayedTask(PlayerDeathCoords.getInstance(), new Runnable() {
                     public void run() {
-                        Bukkit.broadcastMessage(pluginprefix + username + " used a totem to escape death!");
+                        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', totemchatmsg
+                                .replace("{PREFIX}", pluginprefix)
+                                .replace("{USERNAME}", username)
+                                .replace("{COORDS}", deathcoords)
+                        ));
                     }
                 }, 1L);}
 
