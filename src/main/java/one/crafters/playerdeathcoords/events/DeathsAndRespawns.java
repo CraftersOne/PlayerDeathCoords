@@ -12,11 +12,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityResurrectEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.scheduler.BukkitScheduler;
-import org.bukkit.scheduler.BukkitTask;
 
 import java.awt.*;
 import java.io.IOException;
-import java.time.Instant;
 import java.util.logging.Logger;
 
 public class DeathsAndRespawns implements Listener {
@@ -38,20 +36,21 @@ public class DeathsAndRespawns implements Listener {
         int z = location.getBlockZ();
 
         String world = p.getWorld().getName();
+        String worldname = world.substring(0,1).toUpperCase() + world.substring(1);
         String deathMessage = e.getDeathMessage();
 
         int ping = p.getPing();
         int levels = p.getLevel();
 
-        String deathcoords = String.format("&e%d %d %d", x, y, z);
+        String deathcoords = String.format("%d, %d, %d", x, y, z);
 
         String pluginprefix = config.getString("prefix");
         String deathmsgyml = config.getString("messages.death-coords-message");
 
-        DiscordWebhook webhook = PlayerDeathCoords.getInstance().getWebhook();
+            DiscordWebhook webhook = PlayerDeathCoords.getInstance().getWebhook();
 
             webhook.addEmbed(new DiscordWebhook.EmbedObject()
-                    .addField("World", world, true)
+                    .addField("World", worldname, true)
                     .addField("Coords", String.format("%d, %d, %d", x, y, z), true)
                     .addField("Ping", String.format("%d", ping), true)
                     .addField("XP", String.format("Lvl %d", levels), true)
@@ -59,6 +58,12 @@ public class DeathsAndRespawns implements Listener {
                     .setColor(new Color(255 , 0, 0))
                     .setDescription("")
             );
+
+            try {
+                webhook.execute();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
 
 
         if (config.getBoolean("send-death-coords-privately")) {
@@ -71,12 +76,6 @@ public class DeathsAndRespawns implements Listener {
                             .replace("{COORDS}", deathcoords)));
                 }
             }, 15L);}
-
-        try {
-            webhook.execute();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
 
     }
 

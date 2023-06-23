@@ -6,7 +6,7 @@
 
     <groupId>crafters.one</groupId>
     <artifactId>PlayerDeathCoords</artifactId>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
     <packaging>jar</packaging>
 
     <name>PlayerDeathCoords</name>
@@ -41,7 +41,7 @@
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
-                            <outputFile>H:\Crafters-Backups\TestSMP\plugins\PlayerDeathCoords.jar</outputFile>
+                            <outputFile>C:\Users\Plexiate\Desktop\serv\plugins\PlayerDeathCoords.jar</outputFile>
                         </configuration>
                     </execution>
                 </executions>

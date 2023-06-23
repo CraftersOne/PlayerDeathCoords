@@ -13,7 +13,8 @@ messages:
 
   death-coords-message: '&7[Console -> {USERNAME}] &fYour death coords were &e{COORDS}&7.'
   totem-usage-server-chat: '{PREFIX} &f{USERNAME} used a totem to escape death!'
-  reload-message: '{PREFIX} &f Player Death Coords has been reloaded.'
+  reload-message: '{PREFIX} &fPlayer Death Coords has been reloaded.'
 
 discord-messages:
   totem-usage: '{USERNAME} used a totem to escape death!'
+  player-combat-message: '{ATTACKER} damaged {VICTIM} for {DAMAGE}'
